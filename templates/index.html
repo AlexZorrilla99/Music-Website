@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Top Tracks by Genre</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <h1>Top Tracks by Genre</h1>
+    <form method="post">
+        <input type="text" name="genre" placeholder="Enter a music genre" required>
+        <input type="submit" value="Search">
+    </form>
+    {% if tracks %}
+        <h2 style="text-align:center;">Top Tracks for "{{ genre }}"</h2>
+        <div class="tracks">
+            {% for track in tracks %}
+                <div class="track">
+                    {% if track.image_url %}
+                        <img src="{{ track.image_url }}" alt="Album cover">
+                    {% endif %}
+                    <h3>{{ track.name }}</h3>
+                    <p><strong>Artist:</strong> {{ track.artist }}</p>
+                    <p><strong>Album:</strong> {{ track.album }}</p>
+                    <p><a href="{{ track.url }}" target="_blank">Listen on Spotify</a></p>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    {% if error %}
+    <p style="color:red; text-align:center;">{{ error }}</p>
+{% endif %}
+</body>
+</html>
